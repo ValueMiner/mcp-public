@@ -1,0 +1,12 @@
+[project]
+name = "valueminer-mcpb"
+version = "1.0.0"
+description = "ValueMiner MCP Desktop Extension server"
+requires-python = ">=3.10"
+dependencies = [
+  "httpx>=0.27.0",
+  "mcp>=1.13.0"
+]
+
+[tool.uv]
+package = false

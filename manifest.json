@@ -1,0 +1,83 @@
+{
+  "manifest_version": "0.4",
+  "name": "valueminer",
+  "display_name": "ValueMiner",
+  "version": "1.0.0",
+  "description": "Securely connect Claude to ValueMiner agents, workflows, and automation tools through MCP.",
+  "long_description": "ValueMiner's Desktop Extension lets Claude discover and run the authenticated user's available ValueMiner tools. The local MCP server authenticates with the ValueMiner API, dynamically loads tool definitions, and proxies Claude tool calls to ValueMiner backend endpoints.",
+  "author": {
+    "name": "ValueMiner",
+    "url": "https://valueminer.eu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ValueMiner/ai.git"
+  },
+  "homepage": "https://valueminer.eu",
+  "documentation": "https://github.com/ValueMiner/ai/tree/main/valueminer-mcpb",
+  "support": "https://valueminer.eu/contact-us/",
+  "privacy_policies": [
+    "https://valueminer.eu/data-privacy/"
+  ],
+  "license": "Proprietary",
+  "keywords": [
+    "valueminer",
+    "agents",
+    "automation",
+    "workflows",
+    "mcp"
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "uv": ">=0.4.0"
+    }
+  },
+  "server": {
+    "type": "uv",
+    "entry_point": "server/mcp_server.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${__dirname}",
+        "python",
+        "server/mcp_server.py"
+      ],
+      "env": {
+        "VALUEMINER_API_URL": "${user_config.valueminer_api_url}",
+        "VALUEMINER_API_TOKEN": "${user_config.valueminer_api_token}",
+        "VALUEMINER_BA_HEADER": "${user_config.valueminer_ba_header}"
+      }
+    }
+  },
+  "tools_generated": true,
+  "user_config": {
+    "valueminer_api_token": {
+      "type": "string",
+      "title": "ValueMiner API token",
+      "description": "Bearer token used to load and execute your ValueMiner tools.",
+      "sensitive": true,
+      "required": true
+    },
+    "valueminer_api_url": {
+      "type": "string",
+      "title": "ValueMiner API URL",
+      "description": "Base URL for the ValueMiner API.",
+      "default": "https://apigo.develop.valueminer.eu",
+      "required": true
+    },
+    "valueminer_ba_header": {
+      "type": "string",
+      "title": "ValueMiner BA header",
+      "description": "ValueMiner business-account header used when loading available MCP tools.",
+      "default": "767",
+      "required": true
+    }
+  }
+}
